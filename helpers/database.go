@@ -23,6 +23,6 @@ func SetupMySQL() {
 
 	logrus.Info("Connected to database")
 
-	DB.AutoMigrate(&models.User{}, &models.UserSession{})
+	DB.AutoMigrate(&models.Wallet{}, &models.WalletTransaction{})
 
 }
