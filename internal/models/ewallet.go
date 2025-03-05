@@ -4,7 +4,7 @@ import "time"
 
 type Wallet struct {
 	ID        int
-	UserID    int     `gorm:"column:user_id;type:int" validate:"required"`
+	UserID    int     `json:"user_id" gorm:"column:user_id;type:int" validate:"required"`
 	Balance   float64 `gorm:"column:balance;type:decimal(15,2)" validate:"required"`
 	CreatedAt time.Time
 	UpdatedAt time.Time

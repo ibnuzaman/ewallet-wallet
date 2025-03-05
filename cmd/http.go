@@ -4,6 +4,7 @@ import (
 	"ewallet-wallet/helpers"
 	"ewallet-wallet/internal/api"
 	"ewallet-wallet/internal/interfaces"
+	"ewallet-wallet/internal/repository"
 	"ewallet-wallet/internal/services"
 	"log"
 
@@ -17,6 +18,10 @@ func ServerHttp() {
 	r := gin.Default()
 
 	r.GET("/health", dependency.HealthchekAPI.HealcheckHandlerHTTP)
+	walletv1 := r.Group("/wallet/v1")
+	{
+		walletv1.POST("/", dependency.WalletAPI.Create)
+	}
 
 	err := r.Run(":" + helpers.GetEnv("PORT", ""))
 	if err != nil {
@@ -26,7 +31,8 @@ func ServerHttp() {
 }
 
 type Dependency struct {
-	HealthchekAPI interfaces.IHealthcheckHandler
+	HealthchekAPI interfaces.IHealthchecAPI
+	WalletAPI     interfaces.IWalletAPI
 }
 
 func dependencyInject() Dependency {
@@ -35,9 +41,21 @@ func dependencyInject() Dependency {
 		HealthcheckServices: healthcheckSvc,
 	}
 
-	return Dependency{
+	WalletRepo := &repository.WalletRepo{
+		DB: helpers.DB,
+	}
 
+	WalletSvc := &services.WalletService{
+		WalletRepo: WalletRepo,
+	}
+
+	WalletApi := &api.WalletApi{
+		WalletService: WalletSvc,
+	}
+
+	return Dependency{
 		HealthchekAPI: healthchekcAPI,
+		WalletAPI:     WalletApi,
 	}
 
 }
