@@ -12,7 +12,7 @@ type IWalletRepo interface {
 }
 
 type IWalletService interface {
-	Create(ctx context.Context, userID int) error
+	Create(ctx context.Context, wallet *models.Wallet) error
 }
 type IWalletAPI interface {
 	Create(*gin.Context)

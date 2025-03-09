@@ -10,6 +10,6 @@ type WalletService struct {
 	WalletRepo interfaces.IWalletRepo
 }
 
-func (s *WalletService) Create(ctx context.Context, userID int) error {
-	return s.WalletRepo.CreateWallet(ctx, &models.Wallet{UserID: userID})
+func (s *WalletService) Create(ctx context.Context, wallet *models.Wallet) error {
+	return s.WalletRepo.CreateWallet(ctx, wallet)
 }

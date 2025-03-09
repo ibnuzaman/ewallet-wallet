@@ -9,8 +9,6 @@ const (
 )
 
 var (
-	// ErrUsernameAlreadyExist = errors.New("Username already exist")
-	// ErrEmailAlreadyExist    = errors.New("Email already exist")
 	ErrUserNotFound    = "User not found"
 	ErrInvalidPassword = "Invalid password"
 	ErrTokenExpired    = "Token expired"

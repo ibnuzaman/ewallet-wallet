@@ -32,13 +32,13 @@ func (api *WalletApi) Create(c *gin.Context) {
 		return
 	}
 
-	err := api.WalletService.Create(c.Request.Context(), req.UserID)
+	err := api.WalletService.Create(c.Request.Context(), &req)
 	if err != nil {
 		log.Info("failed to create wallet :", err)
 		helpers.SendResponseHTTP(c, http.StatusInternalServerError, constants.ErrServerError, nil)
 		return
 	}
 
-	helpers.SendResponseHTTP(c, http.StatusOK, constants.SuccessMessage, nil)
+	helpers.SendResponseHTTP(c, http.StatusOK, constants.SuccessMessage, req)
 
 }
